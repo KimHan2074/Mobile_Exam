@@ -169,6 +169,11 @@ const DanhBa = () => {
               </View>
             </TouchableOpacity>
 
+            {/* Nút sửa */}
+            <TouchableOpacity onPress={() => selectContactToEdit(item)} style={styles.iconButton}>
+                <Text style={styles.iconText}>✏️</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity onPress={() => deleteContact(item.id)}>
               <View style={styles.deleteButton}>
                 <Text style={styles.deleteButtonText}>🗑️</Text>
@@ -254,6 +259,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  iconButton: {
+  marginLeft: 10,
+  backgroundColor: '#ff66b2', // màu bút chì
+  padding: 10,
+  borderRadius: 10,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+iconText: {
+  fontSize: 16,
+  color: 'white',
+},
 });
 
 export default DanhBa;
