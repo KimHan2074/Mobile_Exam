@@ -1,0 +1,158 @@
+import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  ImageSourcePropType,
+} from "react-native";
+
+type Product = {
+  id: string;
+  name: string;
+  price: string;
+  image: ImageSourcePropType;
+};
+
+const Flat_list1 = () => {
+  const products = [
+    { id: "1", name: "Giày thể thao", price: "250.000đ", image: require("../../assets/images/Doreamon/shoesDRM.jpg") },
+    { id: "2", name: "Áo thun Doraemon", price: "180.000đ", image: require("../../assets/images/Doreamon/aothun.jpg") },
+    { id: "3", name: "Balo học sinh", price: "320.000đ", image: require("../../assets/images/Doreamon/balo.jpg") },
+    { id: "4", name: "Mũ bảo hiểm thời trang", price: "150.000đ", image: require("../../assets/images/Doreamon/hat.jpg") },
+    { id: "5", name: "Đồng hồ trẻ em", price: "280.000đ", image: require("../../assets/images/Doreamon/watch.jpg") },
+    { id: "6", name: "Áo khoác gió", price: "350.000đ", image: require("../../assets/images/Doreamon/khoac.jpg") },
+    { id: "7", name: "Vở Doraemon", price: "20.000đ", image: require("../../assets/images/Doreamon/book.jpg") },
+    { id: "8", name: "Bút chì Doraemon", price: "15.000đ", image: require("../../assets/images/Doreamon/butchi.jpg") },
+    { id: "9", name: "Túi đeo chéo", price: "220.000đ", image: require("../../assets/images/Doreamon/tui.jpg") },
+  ];
+
+  const renderItem = ({ item }: { item: Product }) => (
+    <View style={styles.card}>
+      <Image source={item.image} style={styles.image} />
+      <View style={styles.infoContainer}>
+        <Text style={styles.productName} numberOfLines={2}>
+          {item.name}
+        </Text>
+        <Text style={styles.productPrice}>{item.price}</Text>
+      </View>
+
+      <TouchableOpacity style={styles.buyButton}>
+        <Text style={styles.buyButtonText}>Mua ngay</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>🛍️ Doraemon Shop</Text>
+      </View>
+
+      {/* Danh sách sản phẩm */}
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        numColumns={3}
+        contentContainerStyle={styles.gridContainer}
+        showsVerticalScrollIndicator={false}
+      />
+
+      {/* Footer */}
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>© 2025 Doraemon Store</Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: "#FFFFFF" },
+  header: {
+    backgroundColor: "#FFD93D",
+    paddingVertical: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "#E0C93D",
+  },
+  headerTitle: { fontSize: 22, fontWeight: "bold", color: "#333333" },
+  gridContainer: {
+    justifyContent: "space-around",
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+  },
+  card: {
+    flex: 1 / 3,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    padding: 10,
+    margin: 6,
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 200,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 4,
+  },
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    marginBottom: 10,
+    resizeMode: "cover",
+  },
+  infoContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 4,
+  },
+  productName: {
+    fontWeight: "bold",
+    fontSize: 13,
+    textAlign: "center",
+    lineHeight: 18,
+    height: 36,
+    overflow: "hidden",
+    color: "#333333",
+  },
+  productPrice: {
+    color: "#E63946",
+    fontWeight: "bold",
+    marginTop: 4,
+    fontSize: 13,
+  },
+  buyButton: {
+    backgroundColor: "#2F80ED",
+    borderRadius: 8,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    marginTop: 6,
+  },
+  buyButtonText: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: 13,
+  },
+  footer: {
+    backgroundColor: "#FFD1D1",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: "#F5B5B5",
+  },
+  footerText: {
+    fontSize: 14,
+    color: "#444444",
+  },
+});
+
+export default Flat_list1;
