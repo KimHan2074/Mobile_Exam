@@ -23,6 +23,8 @@ import ShopComponent from '@/components/demobuoi7/ShopComponent';
 import ShopFlatList from '@/components/demobuoi7/ShopFlatList';
 import QuanLySV from '@/components/demobuoi9/QuanLySV';
 import DanhBa from '@/components/demobuoi10/DanhBa';
+import SanPhamSQLite from '@/components/demobuoi11/SanPhamSQLite';
+import AppNavigator from '@/components/demobuoi13/AppNavigator';
 export default function HomeScreen() {
   return (
     // <ParallaxScrollView
@@ -100,6 +102,8 @@ export default function HomeScreen() {
     // <ShopScreen/>
     // <ShopComponent/>
     // <ShopFlatList/>
+    // <SanPhamSQLite/>
+    <AppNavigator/>
     // <Layout1/>
     // <Layout2/>
     // <Calculator/>
@@ -107,7 +111,7 @@ export default function HomeScreen() {
     // <SayHello name='Kim Hân' age={21} />
     // <ParentChild/>
     // <QuanLySV/>
-    <DanhBa/>
+    // <DanhBa/>
   )
 }
 

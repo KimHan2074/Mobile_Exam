@@ -1,0 +1,257 @@
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+
+import {
+  Category,
+  Product,
+  fetchCategories,
+  fetchProducts,
+  initDatabase,
+} from '../../database/database';
+
+const HomeScreen = () => {
+  const navigation = useNavigation<any>();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const init = async () => {
+      await initDatabase();
+      await loadData();
+    };
+    init();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const [cats, prods] = await Promise.all([fetchCategories(), fetchProducts()]);
+      setCategories(cats);
+      setProducts(prods.reverse());
+    } catch (error) {
+      console.error('Load data error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getImageSource = (img: string): ImageSourcePropType => {
+    if (img.startsWith('file://')) return { uri: img };
+    switch (img) {
+      case 'aothun.jpg':
+        return require('../../assets/images/Doreamon/aothun.jpg');
+      case 'shoesDRM.jpg':
+        return require('../../assets/images/Doreamon/shoesDRM.jpg');
+      case 'balo.jpg':
+        return require('../../assets/images/Doreamon/balo.jpg');
+      case 'hat.jpg':
+        return require('../../assets/images/Doreamon/hat.jpg');
+      case 'tui.jpg':
+        return require('../../assets/images/Doreamon/tui.jpg');
+      default:
+        return require('../../assets/images/Doreamon/aothun.jpg');
+    }
+  };
+
+  const handleCategoryPress = () => {
+    if (!categories.length) {
+      Alert.alert('Thông báo', 'Đang tải danh mục sản phẩm...');
+      return;
+    }
+    const firstCategory = categories[0];
+    navigation.navigate('ProductsByCategory', {
+      categoryId: firstCategory.id,
+      categoryName: firstCategory.name,
+    });
+  };
+
+  const renderProduct = ({ item }: { item: Product }) => (
+    <TouchableOpacity
+      style={styles.productCard}
+      onPress={() => navigation.navigate('Details', { product: item })}
+    >
+      <Image source={getImageSource(item.img)} style={styles.productImage} />
+      <Text style={styles.productName} numberOfLines={2}>
+        {item.name}
+      </Text>
+      <Text style={styles.productPrice}>{item.price.toLocaleString()} đ</Text>
+    </TouchableOpacity>
+  );
+
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.center]}>
+        <ActivityIndicator size="large" color="#6366F1" />
+        <Text style={styles.loadingText}>Đang tải dữ liệu...</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      {/* Banner */}
+      <View style={styles.bannerContainer}>
+        <Image
+          source={require('../../assets/images/Doreamon/khoac.jpg')}
+          style={styles.bannerImage}
+          resizeMode="cover"
+        />
+        <View style={styles.bannerOverlay}>
+          <Text style={styles.bannerTitle}>🛍️ Doraemon Store</Text>
+          <Text style={styles.bannerSubtitle}>Thời trang cho fan Doraemon</Text>
+        </View>
+      </View>
+
+      {/* Navigation menu */}
+      <View style={styles.navMenu}>
+        <TouchableOpacity style={[styles.navItem, styles.navItemActive]}>
+          <Text style={styles.navItemText}>🏠 Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navItem} onPress={handleCategoryPress}>
+          <Text style={styles.navItemText}>📦 Danh mục sản phẩm</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Product section */}
+      <Text style={styles.sectionTitle}>Sản phẩm mới nhất</Text>
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={2}
+        columnWrapperStyle={{ gap: 12 }}
+        contentContainerStyle={styles.productList}
+        renderItem={renderProduct}
+        ListEmptyComponent={
+          <Text style={styles.emptyText}>Hiện chưa có sản phẩm nào.</Text>
+        }
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F8FAFC',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 12,
+    color: '#475569',
+    fontWeight: '600',
+  },
+  bannerContainer: {
+    width: '100%',
+    height: 160,
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginBottom: 16,
+  },
+  bannerImage: {
+    width: '100%',
+    height: '100%',
+  },
+  bannerOverlay: {
+    position: 'absolute',
+    inset: 0,
+    backgroundColor: 'rgba(15, 23, 42, 0.4)',
+    padding: 16,
+    justifyContent: 'flex-end',
+  },
+  bannerTitle: {
+    color: '#FFFFFF',
+    fontSize: 22,
+    fontWeight: '800',
+    marginBottom: 4,
+  },
+  bannerSubtitle: {
+    color: '#E2E8F0',
+    fontSize: 14,
+  },
+  navMenu: {
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 16,
+  },
+  navItem: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#CBD5F5',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  navItemActive: {
+    backgroundColor: '#E0E7FF',
+    borderColor: '#A5B4FC',
+  },
+  navItemText: {
+    color: '#1E293B',
+    fontWeight: '700',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#0F172A',
+    marginBottom: 12,
+  },
+  productList: {
+    paddingBottom: 24,
+  },
+  productCard: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    padding: 12,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
+    alignItems: 'center',
+  },
+  productImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 12,
+    marginBottom: 10,
+  },
+  productName: {
+    fontWeight: '700',
+    fontSize: 14,
+    textAlign: 'center',
+    color: '#1E293B',
+  },
+  productPrice: {
+    marginTop: 6,
+    color: '#DC2626',
+    fontWeight: '700',
+  },
+  emptyText: {
+    textAlign: 'center',
+    color: '#94A3B8',
+    marginTop: 32,
+  },
+});
+
+export default HomeScreen;
