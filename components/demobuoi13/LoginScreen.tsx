@@ -34,8 +34,17 @@ const LoginScreen = () => {
       const user = await getUserByCredentials(trimmedUsername, trimmedPassword);
       if (user) {
         await setCurrentUser(user);
-        Alert.alert('Đăng nhập thành công', `Xin chào ${user.username}!`);
-        navigation.navigate('HomeTab');
+        Alert.alert(
+          'Đăng nhập thành công',
+          `Xin chào ${user.username}!${
+            user.role === 'admin' ? '\nChuyển đến trang quản trị...' : ''
+          }`,
+        );
+        if (user.role === 'admin') {
+          navigation.navigate('HomeTab', { screen: 'AdminDashboard' });
+        } else {
+          navigation.navigate('HomeTab', { screen: 'Home' });
+        }
       } else {
         Alert.alert('Thất bại', 'Tên đăng nhập hoặc mật khẩu không đúng.');
       }

@@ -39,10 +39,11 @@
 
 // export default HomeStackScreen;//------------------------
 
-import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../demobuoi13/HomeScreen';
+import React from 'react';
+import AdminDashboard from '../demobuoi13/AdminDashboard';
 import DetailsScreen from '../demobuoi13/DetailsScreen';
+import HomeScreen from '../demobuoi13/HomeScreen';
 import ProductsByCategoryScreen from '../demobuoi13/ProductsByCategoryScreen';
 import { HomeStackParamList } from './types';
 
@@ -62,6 +63,7 @@ const HomeStackScreen = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Details" component={DetailsScreen} />
       <Stack.Screen name="ProductsByCategory" component={ProductsByCategoryScreen} /> 
+      <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
     </Stack.Navigator>
   );
 };

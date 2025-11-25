@@ -72,15 +72,17 @@
 // // Điều này sẽ buộc TypeScript chấp nhận HomeScreen như một component mà Tab Navigator có thể sử dụng, ngay cả khi HomeScreen yêu cầu các props navigation và route.
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigatorScreenParams } from '@react-navigation/native';
 import React from 'react';
 import { Text } from 'react-native';
 
 import HomeStackScreen from '../demobuoi13/HomeStackScreen';
 import LoginScreen from '../demobuoi13/LoginScreen';
 import SignupScreen from '../demobuoi13/SignupScreen';
+import { HomeStackParamList } from './types';
 
 export type BottomTabParamList = {
-  HomeTab: undefined;
+  HomeTab: NavigatorScreenParams<HomeStackParamList> | undefined;
   Signup: undefined;
   Login: undefined;
 };
