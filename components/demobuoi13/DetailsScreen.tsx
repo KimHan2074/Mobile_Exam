@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ImageSourcePropType, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { HomeStackParamList } from './types';
+import React, { useEffect, useState } from 'react';
+import { Alert, Image, ImageSourcePropType, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Category, addToCart, fetchCategories } from '../../database/database'; // giả sử bạn có database.ts với fetchCategories
 import CategorySelector from '../demobuoi13/CategorySelector';
-import { fetchCategories, Category } from '../../database/database'; // giả sử bạn có database.ts với fetchCategories
+import { useUser } from './UserContext';
+import { HomeStackParamList } from './types';
 
 type DetailsScreenProps = NativeStackScreenProps<HomeStackParamList, 'Details'>;
 
 const DetailsScreen = ({ route, navigation }: DetailsScreenProps) => {
   const { product } = route.params;
+  const { currentUser } = useUser();
+  const nav = useNavigation<any>();
 
   const [categories, setCategories] = useState<Category[]>([]);
 
@@ -42,6 +46,26 @@ const DetailsScreen = ({ route, navigation }: DetailsScreenProps) => {
         categoryId: selected.id,
         categoryName: selected.name,
       });
+    }
+  };
+
+  const handleAddToCart = async () => {
+    if (!currentUser) {
+      Alert.alert('Thông báo', 'Vui lòng đăng nhập để thêm sản phẩm vào giỏ.', [
+        {
+          text: 'Đăng nhập',
+          onPress: () => nav.navigate('Login'),
+        },
+        { text: 'Huỷ', style: 'cancel' },
+      ]);
+      return;
+    }
+    try {
+      await addToCart(currentUser.id, product.id, 1);
+      Alert.alert('Thành công', 'Đã thêm vào giỏ hàng.');
+    } catch (error) {
+      console.error('Add to cart error:', error);
+      Alert.alert('Lỗi', 'Không thể thêm sản phẩm vào giỏ.');
     }
   };
 
@@ -79,6 +103,10 @@ const DetailsScreen = ({ route, navigation }: DetailsScreenProps) => {
         selectedId={product.categoryId} // highlight category hiện tại
         onSelect={handleSelectCategory} // click → điều hướng
       />
+
+      <TouchableOpacity style={styles.addButton} onPress={handleAddToCart}>
+        <Text style={styles.addButtonText}>Thêm vào giỏ hàng</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -91,6 +119,18 @@ const styles = StyleSheet.create({
   label: { width: 90, fontWeight: '600', fontSize: 16, color: '#555' },
   value: { fontSize: 16, color: '#222' },
   labelCategory: { marginTop: 20, fontSize: 16, fontWeight: 'bold', color: '#333' },
+  addButton: {
+    marginTop: 20,
+    backgroundColor: '#22C55E',
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+  },
+  addButtonText: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+    fontSize: 16,
+  },
 });
 
 export default DetailsScreen;

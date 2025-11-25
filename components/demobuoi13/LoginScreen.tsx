@@ -2,12 +2,12 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
-    Alert,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 import { getUserByCredentials, initDatabase } from '../../database/database';
@@ -41,9 +41,9 @@ const LoginScreen = () => {
           }`,
         );
         if (user.role === 'admin') {
-          navigation.navigate('HomeTab', { screen: 'AdminDashboard' });
+          navigation.navigate('AdminHome');
         } else {
-          navigation.navigate('HomeTab', { screen: 'Home' });
+          navigation.navigate('UserHome', { screen: 'Home' });
         }
       } else {
         Alert.alert('Thất bại', 'Tên đăng nhập hoặc mật khẩu không đúng.');

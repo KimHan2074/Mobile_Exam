@@ -16,7 +16,7 @@ export interface Product {
     id: number;  // ID là số nguyên
     name: string;
     price: number; // Giá nên là kiểu số
-    image: string;
+    img: string;
     categoryId: number;
   }
 // HomeStackParamList: Là kiểu (type) bạn định nghĩa để mô tả danh sách các màn hình (routes) và các tham số tương ứng của chúng trong navigator
@@ -25,5 +25,15 @@ export type HomeStackParamList = {
     Home: undefined;
     Details: { product: Product };  //trang này có tham số nhận vào là product
     ProductsByCategory: { categoryId: number; categoryName?: string };
+    Cart: undefined;
+    Checkout: undefined;
+    OrderHistory: undefined;
+    Profile: undefined;
+  };
+
+export type AdminStackParamList = {
     AdminDashboard: undefined;
+    UserManagement: undefined;
+    CategoryManagement: undefined;
+    ProductManagement: undefined;
   };

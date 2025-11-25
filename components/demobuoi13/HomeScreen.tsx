@@ -1,6 +1,6 @@
 import { Picker } from '@react-native-picker/picker';
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -17,14 +17,17 @@ import {
 import {
   Category,
   Product,
+  addToCart,
   fetchCategories,
   fetchProducts,
   initDatabase,
 } from '../../database/database';
 import Header from './Header';
+import { useUser } from './UserContext';
 
 const HomeScreen = () => {
   const navigation = useNavigation<any>();
+  const { currentUser } = useUser();
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -34,17 +37,10 @@ const HomeScreen = () => {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
 
-  useEffect(() => {
-    const init = async () => {
-      await initDatabase();
-      await loadData();
-    };
-    init();
-  }, []);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
+      await initDatabase();
       const [cats, prods] = await Promise.all([fetchCategories(), fetchProducts()]);
       setCategories(cats);
       setAllProducts(prods.reverse());
@@ -54,7 +50,13 @@ const HomeScreen = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadData();
+    }, [loadData]),
+  );
 
   const categoryNameMap = useMemo(() => {
     const map: Record<number, string> = {};
@@ -124,6 +126,32 @@ const HomeScreen = () => {
     });
   };
 
+  const handleAddToCart = async (product: Product) => {
+    if (!currentUser) {
+      Alert.alert('Thông báo', 'Vui lòng đăng nhập để thêm sản phẩm vào giỏ.', [
+        {
+          text: 'Đăng nhập',
+          onPress: () => navigation.navigate('Login'),
+        },
+        { text: 'Huỷ', style: 'cancel' },
+      ]);
+      return;
+    }
+    try {
+      await addToCart(currentUser.id, product.id, 1);
+      Alert.alert('Thành công', 'Đã thêm sản phẩm vào giỏ hàng.', [
+        {
+          text: 'Xem giỏ hàng',
+          onPress: () => navigation.navigate('Cart'),
+        },
+        { text: 'Tiếp tục', style: 'cancel' },
+      ]);
+    } catch (error) {
+      console.error('Add to cart error:', error);
+      Alert.alert('Lỗi', 'Không thể thêm sản phẩm vào giỏ.');
+    }
+  };
+
   const renderProduct = ({ item }: { item: Product }) => (
     <TouchableOpacity
       style={styles.productCard}
@@ -134,6 +162,15 @@ const HomeScreen = () => {
         {item.name}
       </Text>
       <Text style={styles.productPrice}>{item.price.toLocaleString()} đ</Text>
+      <TouchableOpacity
+        style={styles.addCartButton}
+        onPress={event => {
+          event.stopPropagation();
+          handleAddToCart(item);
+        }}
+      >
+        <Text style={styles.addCartText}>Thêm vào giỏ</Text>
+      </TouchableOpacity>
     </TouchableOpacity>
   );
 
@@ -374,6 +411,19 @@ const styles = StyleSheet.create({
     marginTop: 4,
     color: '#DC2626',
     fontWeight: '700',
+  },
+  addCartButton: {
+    marginTop: 8,
+    width: '100%',
+    backgroundColor: '#22C55E',
+    paddingVertical: 6,
+    borderRadius: 999,
+  },
+  addCartText: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+    textAlign: 'center',
+    fontSize: 13,
   },
   emptyText: {
     textAlign: 'center',

@@ -76,13 +76,15 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import React from 'react';
 import { Text } from 'react-native';
 
+import AdminStackScreen from '../demobuoi13/AdminStackScreen';
 import HomeStackScreen from '../demobuoi13/HomeStackScreen';
 import LoginScreen from '../demobuoi13/LoginScreen';
 import SignupScreen from '../demobuoi13/SignupScreen';
-import { HomeStackParamList } from './types';
+import { AdminStackParamList, HomeStackParamList } from './types';
 
 export type BottomTabParamList = {
-  HomeTab: NavigatorScreenParams<HomeStackParamList> | undefined;
+  UserHome: NavigatorScreenParams<HomeStackParamList> | undefined;
+  AdminHome: NavigatorScreenParams<AdminStackParamList> | undefined;
   Signup: undefined;
   Login: undefined;
 };
@@ -107,12 +109,22 @@ const AppTabs = () => {
       }}
     >
       <Tab.Screen
-        name="HomeTab"
+        name="UserHome"
         component={HomeStackScreen}
         options={{
           title: 'Home',
           tabBarIcon: ({ color, size }) => (
             <Text style={{ fontSize: size, color }}>🏠</Text>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="AdminHome"
+        component={AdminStackScreen}
+        options={{
+          title: 'Admin',
+          tabBarIcon: ({ color, size }) => (
+            <Text style={{ fontSize: size, color }}>🛡️</Text>
           ),
         }}
       />
