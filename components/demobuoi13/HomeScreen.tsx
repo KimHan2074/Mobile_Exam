@@ -1,5 +1,6 @@
+import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -8,6 +9,7 @@ import {
   ImageSourcePropType,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -19,12 +21,18 @@ import {
   fetchProducts,
   initDatabase,
 } from '../../database/database';
+import Header from './Header';
 
 const HomeScreen = () => {
   const navigation = useNavigation<any>();
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   useEffect(() => {
     const init = async () => {
@@ -39,6 +47,7 @@ const HomeScreen = () => {
       setLoading(true);
       const [cats, prods] = await Promise.all([fetchCategories(), fetchProducts()]);
       setCategories(cats);
+      setAllProducts(prods.reverse());
       setProducts(prods.reverse());
     } catch (error) {
       console.error('Load data error:', error);
@@ -46,6 +55,44 @@ const HomeScreen = () => {
       setLoading(false);
     }
   };
+
+  const categoryNameMap = useMemo(() => {
+    const map: Record<number, string> = {};
+    categories.forEach((c) => {
+      map[c.id] = c.name;
+    });
+    return map;
+  }, [categories]);
+
+  useEffect(() => {
+    let filtered = allProducts;
+    const keyword = searchKeyword.trim().toLowerCase();
+
+    if (keyword) {
+      filtered = filtered.filter((product) => {
+        const nameMatch = product.name.toLowerCase().includes(keyword);
+        const categoryMatch = (categoryNameMap[product.categoryId] || '')
+          .toLowerCase()
+          .includes(keyword);
+        return nameMatch || categoryMatch;
+      });
+    }
+
+    if (selectedCategoryId) {
+      filtered = filtered.filter((product) => product.categoryId === selectedCategoryId);
+    }
+
+    const min = parseFloat(minPrice);
+    const max = parseFloat(maxPrice);
+    if (!Number.isNaN(min)) {
+      filtered = filtered.filter((product) => product.price >= min);
+    }
+    if (!Number.isNaN(max)) {
+      filtered = filtered.filter((product) => product.price <= max);
+    }
+
+    setProducts(filtered);
+  }, [allProducts, searchKeyword, selectedCategoryId, minPrice, maxPrice, categoryNameMap]);
 
   const getImageSource = (img: string): ImageSourcePropType => {
     if (img.startsWith('file://')) return { uri: img };
@@ -101,6 +148,8 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Header />
+
       {/* Banner */}
       <View style={styles.bannerContainer}>
         <Image
@@ -126,6 +175,42 @@ const HomeScreen = () => {
 
       {/* Product section */}
       <Text style={styles.sectionTitle}>Sản phẩm mới nhất</Text>
+      <View style={styles.filterWrapper}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="🔍 Tìm kiếm theo tên hoặc danh mục..."
+          value={searchKeyword}
+          onChangeText={setSearchKeyword}
+        />
+        <View style={styles.pickerWrapper}>
+          <Picker
+            selectedValue={selectedCategoryId ?? 0}
+            onValueChange={(value) => setSelectedCategoryId(value === 0 ? null : value)}
+            style={styles.picker}
+          >
+            <Picker.Item label="Tất cả danh mục" value={0} />
+            {categories.map((cat) => (
+              <Picker.Item key={cat.id} label={cat.name} value={cat.id} />
+            ))}
+          </Picker>
+        </View>
+        <View style={styles.priceRow}>
+          <TextInput
+            style={styles.priceInput}
+            placeholder="Giá tối thiểu"
+            keyboardType="numeric"
+            value={minPrice}
+            onChangeText={setMinPrice}
+          />
+          <TextInput
+            style={styles.priceInput}
+            placeholder="Giá tối đa"
+            keyboardType="numeric"
+            value={maxPrice}
+            onChangeText={setMaxPrice}
+          />
+        </View>
+      </View>
       <FlatList
         data={products}
         keyExtractor={(item) => item.id.toString()}
@@ -160,10 +245,10 @@ const styles = StyleSheet.create({
   },
   bannerContainer: {
     width: '100%',
-    height: 160,
-    borderRadius: 16,
+    height: 130,
+    borderRadius: 14,
     overflow: 'hidden',
-    marginBottom: 16,
+    marginBottom: 12,
   },
   bannerImage: {
     width: '100%',
@@ -188,8 +273,8 @@ const styles = StyleSheet.create({
   },
   navMenu: {
     flexDirection: 'row',
-    gap: 12,
-    marginBottom: 16,
+    gap: 10,
+    marginBottom: 12,
   },
   navItem: {
     flex: 1,
@@ -214,36 +299,79 @@ const styles = StyleSheet.create({
     color: '#0F172A',
     marginBottom: 12,
   },
+  filterWrapper: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    padding: 10,
+    marginBottom: 12,
+    gap: 10,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  searchInput: {
+    backgroundColor: '#F8FAFC',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    height: 44,
+    borderWidth: 1,
+    borderColor: '#CBD5F5',
+  },
+  pickerWrapper: {
+    borderWidth: 1,
+    borderColor: '#CBD5F5',
+    borderRadius: 12,
+    height: 50,
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  picker: {
+    height: 50,
+    backgroundColor: '#FFFFFF',
+    marginTop: -4,
+  },
+  priceRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  priceInput: {
+    flex: 1,
+    backgroundColor: '#F8FAFC',
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#CBD5F5',
+  },
   productList: {
-    paddingBottom: 24,
+    paddingBottom: 16,
   },
   productCard: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 12,
-    marginBottom: 12,
+    borderRadius: 14,
+    padding: 10,
+    marginBottom: 10,
     shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 2,
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 },
+    elevation: 1,
     alignItems: 'center',
   },
   productImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 12,
-    marginBottom: 10,
+    width: 105,
+    height: 105,
+    borderRadius: 10,
+    marginBottom: 8,
   },
   productName: {
     fontWeight: '700',
-    fontSize: 14,
+    fontSize: 13,
     textAlign: 'center',
     color: '#1E293B',
   },
   productPrice: {
-    marginTop: 6,
+    marginTop: 4,
     color: '#DC2626',
     fontWeight: '700',
   },

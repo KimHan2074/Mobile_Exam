@@ -1,3 +1,5 @@
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
     Alert,
@@ -9,10 +11,12 @@ import {
 } from 'react-native';
 
 import { addUser, initDatabase } from '../../database/database';
+import { BottomTabParamList } from './AppTabs';
 
 const SignupScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation<BottomTabNavigationProp<BottomTabParamList>>();
 
   const handleSignup = async () => {
     const trimmedUsername = username.trim();
@@ -30,6 +34,7 @@ const SignupScreen = () => {
         Alert.alert('Thành công', 'Đăng ký tài khoản thành công!');
         setUsername('');
         setPassword('');
+        navigation.navigate('Login');
       } else {
         Alert.alert('Lỗi', 'Tên đăng nhập đã tồn tại.');
       }

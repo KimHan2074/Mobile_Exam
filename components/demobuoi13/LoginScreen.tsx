@@ -1,3 +1,5 @@
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
     Alert,
@@ -9,10 +11,14 @@ import {
 } from 'react-native';
 
 import { getUserByCredentials, initDatabase } from '../../database/database';
+import { BottomTabParamList } from './AppTabs';
+import { useUser } from './UserContext';
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation<BottomTabNavigationProp<BottomTabParamList>>();
+  const { setCurrentUser } = useUser();
 
   const handleLogin = async () => {
     const trimmedUsername = username.trim();
@@ -27,7 +33,9 @@ const LoginScreen = () => {
       await initDatabase();
       const user = await getUserByCredentials(trimmedUsername, trimmedPassword);
       if (user) {
+        await setCurrentUser(user);
         Alert.alert('Đăng nhập thành công', `Xin chào ${user.username}!`);
+        navigation.navigate('HomeTab');
       } else {
         Alert.alert('Thất bại', 'Tên đăng nhập hoặc mật khẩu không đúng.');
       }

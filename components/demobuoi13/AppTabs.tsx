@@ -94,6 +94,14 @@ const AppTabs = () => {
         headerShown: false,
         tabBarActiveTintColor: '#6366F1',
         tabBarInactiveTintColor: '#94A3B8',
+        tabBarStyle: {
+          height: 52,
+          paddingBottom: 6,
+          paddingTop: 4,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+        },
       }}
     >
       <Tab.Screen
