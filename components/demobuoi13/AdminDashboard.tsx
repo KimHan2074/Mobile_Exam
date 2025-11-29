@@ -28,6 +28,13 @@ const actions = [
     icon: '📦',
     target: 'ProductManagement' as const,
   },
+  {
+    key: 'orders',
+    title: 'Quản lý đơn hàng',
+    description: 'Xem và cập nhật trạng thái đơn hàng',
+    icon: '📦',
+    target: 'OrderManagement' as const,
+  },
 ];
 
 const AdminDashboard = () => {

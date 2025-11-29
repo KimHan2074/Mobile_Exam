@@ -1,5 +1,7 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
+import { useRoute, RouteProp } from '@react-navigation/native';
+
 import React from 'react';
 import {
   Alert,
@@ -15,7 +17,9 @@ import { useUser } from './UserContext';
 const Header = () => {
   const navigation =
     useNavigation<BottomTabNavigationProp<BottomTabParamList>>();
+  const route = useRoute<RouteProp<BottomTabParamList>>();
   const { currentUser, logout } = useUser();
+  const showActions = currentUser && route.name === 'Home';
 
   const handleLogout = async () => {
     await logout();
@@ -51,7 +55,7 @@ const Header = () => {
         )}
       </View>
 
-      {currentUser && (
+      {showActions && (
         <View style={styles.actionsRow}>
           <TouchableOpacity
             style={styles.actionButton}

@@ -647,3 +647,81 @@ export const fetchProductsByCategory = async (categoryId: number): Promise<Produ
     return [];
   }
 };
+
+
+// ===================Order Management ======================================
+// Lấy tất cả đơn hàng kèm user info (dành cho admin)
+// export const fetchOrdersWithUser = async (): Promise<any[]> => {
+//   const db = getDb();
+//   const orders = await db.getAllAsync(
+//     `SELECT o.*,
+//             u.username,
+//             up.fullName,
+//             up.email,
+//             up.phone,
+//             up.address
+//      FROM orders o
+//      JOIN users u ON o.userId = u.id
+//      LEFT JOIN user_profiles up ON u.id = up.userId
+//      ORDER BY datetime(o.createdAt) DESC`
+//   );
+//   return orders;
+// };
+
+// Lấy tất cả đơn hàng kèm user info + sản phẩm trong đơn (dành cho admin)
+export const fetchOrdersWithUser = async (): Promise<any[]> => {
+  const db = getDb();
+
+  // Lấy tất cả orders kèm user info
+  const ordersRaw = await db.getAllAsync(
+    `SELECT o.*,
+            u.username,
+            up.fullName,
+            up.email,
+            up.phone,
+            up.address
+     FROM orders o
+     JOIN users u ON o.userId = u.id
+     LEFT JOIN user_profiles up ON u.id = up.userId
+     ORDER BY datetime(o.createdAt) DESC`
+  );
+
+  const orders: any[] = [];
+
+  for (const order of ordersRaw) {
+    // Lấy sản phẩm cho mỗi order từ order_items
+    const itemsRaw = await db.getAllAsync(
+      `SELECT oi.id AS orderItemId,
+              oi.productId,
+              oi.quantity,
+              oi.price,
+              p.name AS productName
+       FROM order_items oi
+       LEFT JOIN products p ON p.id = oi.productId
+       WHERE oi.orderId = ?`,
+      [order.id]
+    );
+
+    orders.push({
+      ...order,
+      items: itemsRaw,
+    });
+  }
+
+  return orders;
+};
+
+export const updateOrderStatus = async (orderId: number, status: string): Promise<boolean> => {
+  try {
+    const db = getDb();
+    await db.runAsync(
+      'UPDATE orders SET status = ? WHERE id = ?',
+      [status, orderId]
+    );
+    console.log('✅ Order status updated');
+    return true;
+  } catch (error) {
+    console.error('❌ Error updating order status:', error);
+    return false;
+  }
+};

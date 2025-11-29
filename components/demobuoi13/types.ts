@@ -36,4 +36,5 @@ export type AdminStackParamList = {
     UserManagement: undefined;
     CategoryManagement: undefined;
     ProductManagement: undefined;
+    OrderManagement: undefined;
   };

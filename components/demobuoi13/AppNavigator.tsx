@@ -4,8 +4,8 @@ import { UserProvider } from './UserContext';
 
 const AppNavigator = () => (
   <UserProvider>
-    <AppTabs />
+      <AppTabs />
   </UserProvider>
-);
+  );
 
 export default AppNavigator;

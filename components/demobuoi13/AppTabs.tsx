@@ -81,6 +81,7 @@ import HomeStackScreen from '../demobuoi13/HomeStackScreen';
 import LoginScreen from '../demobuoi13/LoginScreen';
 import SignupScreen from '../demobuoi13/SignupScreen';
 import { AdminStackParamList, HomeStackParamList } from './types';
+import { useUser } from './UserContext';
 
 export type BottomTabParamList = {
   UserHome: NavigatorScreenParams<HomeStackParamList> | undefined;
@@ -92,6 +93,8 @@ export type BottomTabParamList = {
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 const AppTabs = () => {
+  const { currentUser } = useUser();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -108,34 +111,35 @@ const AppTabs = () => {
         },
       }}
     >
+      {/* Tab Home luôn hiển thị */}
       <Tab.Screen
         name="UserHome"
         component={HomeStackScreen}
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size, color }}>🏠</Text>
-          ),
+          tabBarIcon: ({ color, size }) => <Text style={{ fontSize: size, color }}>🏠</Text>,
         }}
       />
-      <Tab.Screen
-        name="AdminHome"
-        component={AdminStackScreen}
-        options={{
-          title: 'Admin',
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size, color }}>🛡️</Text>
-          ),
-        }}
-      />
+
+      {/* Tab Admin chỉ hiển thị với admin */}
+      {currentUser?.role === 'admin' && (
+        <Tab.Screen
+          name="AdminHome"
+          component={AdminStackScreen}
+          options={{
+            title: 'Admin',
+            tabBarIcon: ({ color, size }) => <Text style={{ fontSize: size, color }}>🛡️</Text>,
+          }}
+        />
+      )}
+
+      {/* Tab Signup và Login luôn hiển thị */}
       <Tab.Screen
         name="Signup"
         component={SignupScreen}
         options={{
           title: 'Sign up',
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size, color }}>📝</Text>
-          ),
+          tabBarIcon: ({ color, size }) => <Text style={{ fontSize: size, color }}>📝</Text>,
         }}
       />
       <Tab.Screen
@@ -143,9 +147,7 @@ const AppTabs = () => {
         component={LoginScreen}
         options={{
           title: 'Login',
-          tabBarIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size, color }}>🔐</Text>
-          ),
+          tabBarIcon: ({ color, size }) => <Text style={{ fontSize: size, color }}>🔐</Text>,
         }}
       />
     </Tab.Navigator>
@@ -153,3 +155,4 @@ const AppTabs = () => {
 };
 
 export default AppTabs;
+

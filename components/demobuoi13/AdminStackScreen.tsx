@@ -5,6 +5,7 @@ import AdminDashboard from '../demobuoi13/AdminDashboard';
 import CategoryManagementScreen from '../demobuoi13/CategoryManagementScreen';
 import ProductManagementScreen from '../demobuoi13/ProductManagementScreen';
 import UserManagementScreen from '../demobuoi13/UserManagementScreen';
+import OrderManagementScreen from '../demobuoi13/OrderManagementScreen'
 import { AdminStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<AdminStackParamList>();
@@ -19,6 +20,7 @@ const AdminStackScreen = () => {
       <Stack.Screen name="UserManagement" component={UserManagementScreen} />
       <Stack.Screen name="CategoryManagement" component={CategoryManagementScreen} />
       <Stack.Screen name="ProductManagement" component={ProductManagementScreen} />
+      <Stack.Screen name="OrderManagement" component={OrderManagementScreen} />
     </Stack.Navigator>
   );
 };
