@@ -85,54 +85,6 @@ const initialProducts: Product[] = [
   { id: 5, name: 'Túi đeo chéo dễ thương', price: 980000, img: 'tui.jpg', categoryId: 5 },
 ];
 
-// // ====================== KHỞI TẠO DATABASE ======================
-// export const initDatabase = async (onSuccess?: () => void): Promise<void> => {
-//   try {
-//     const db = getDb();
-
-//     await db.execAsync(`
-//       CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY, name TEXT);
-//       CREATE TABLE IF NOT EXISTS products (
-//         id INTEGER PRIMARY KEY AUTOINCREMENT,
-//         name TEXT,
-//         price REAL,
-//         img TEXT,
-//         categoryId INTEGER,
-//         FOREIGN KEY (categoryId) REFERENCES categories(id)
-//       );
-//       CREATE TABLE IF NOT EXISTS users (
-//         id INTEGER PRIMARY KEY AUTOINCREMENT,
-//         username TEXT UNIQUE,
-//         password TEXT,
-//         role TEXT
-//       );
-//     `);
-
-//     // Thêm dữ liệu mẫu
-//     for (const c of initialCategories) {
-//       await db.runAsync('INSERT OR IGNORE INTO categories (id, name) VALUES (?, ?)', [c.id, c.name]);
-//     }
-
-//     for (const p of initialProducts) {
-//       await db.runAsync(
-//         'INSERT OR IGNORE INTO products (id, name, price, img, categoryId) VALUES (?, ?, ?, ?, ?)',
-//         [p.id, p.name, p.price, p.img, p.categoryId]
-//       );
-//     }
-
-//     await db.runAsync(
-//       `INSERT INTO users (username, password, role)
-//        SELECT 'admin', '123456', 'admin'
-//        WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin')`
-//     );
-
-//     console.log(' Database initialized');
-//     if (onSuccess) onSuccess();
-//   } catch (error) {
-//     console.error(' initDatabase error:', error);
-//   }
-// };
-
 // ====================== KHỞI TẠO DATABASE ======================
 export const initDatabase = async (onSuccess?: () => void): Promise<void> => {
   try {
@@ -203,7 +155,7 @@ export const initDatabase = async (onSuccess?: () => void): Promise<void> => {
       );
     `);
 
-    console.log("✅ Tables created (categories, products, users)");
+    console.log("Tables created (categories, products, users)");
 
     // Thêm categories mẫu
     for (const c of initialCategories) {
@@ -228,14 +180,14 @@ export const initDatabase = async (onSuccess?: () => void): Promise<void> => {
        WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin')`
     );
 
-    console.log("✅ Admin user created");
+    console.log("Admin user created");
 
-    console.log("✅ Database initialized");
+    console.log("Database initialized");
 
     if (onSuccess) onSuccess(); // Gọi loadData() trong useEffect()
 
   } catch (error) {
-    console.error("❌ initDatabase error:", error);
+    console.error("initDatabase error:", error);
   }
 };
 
@@ -250,16 +202,16 @@ export const addUser = async (username: string, password: string, role: string):
       'INSERT INTO users (username, password, role) VALUES (?, ?, ?)',
       [username, password, role]
     );
-    console.log('✅ User added');
+    console.log('User added');
     return true;
   } catch (error) {
-    console.error('❌ Error adding user:', error);
+    console.error('Error adding user:', error);
     return false;
   }
 };
 
 
-// ✏️ Cập nhật người dùng
+// Cập nhật người dùng
 export const updateUser = async (user: User): Promise<boolean> => {
   try {
     const db = getDb();
@@ -267,41 +219,41 @@ export const updateUser = async (user: User): Promise<boolean> => {
       'UPDATE users SET username = ?, password = ?, role = ? WHERE id = ?',
       [user.username, user.password, user.role, user.id]
     );
-    console.log('✅ User updated');
+    console.log('User updated');
     return true;
   } catch (error) {
-    console.error('❌ Error updating user:', error);
+    console.error('Error updating user:', error);
     return false;
   }
 };
 
-// ❌ Xóa người dùng theo ID
+// Xóa người dùng theo ID
 export const deleteUser = async (id: number): Promise<boolean> => {
   try {
     const db = getDb();
     await db.runAsync('DELETE FROM users WHERE id = ?', [id]);
-    console.log('✅ User deleted');
+    console.log('User deleted');
     return true;
   } catch (error) {
-    console.error('❌ Error deleting user:', error);
+    console.error('Error deleting user:', error);
     return false;
   }
 };
 
 
-// 📌 Lấy danh sách tất cả người dùng
+// Lấy danh sách tất cả người dùng
 export const fetchUsers = async (): Promise<User[]> => {
   try {
     const db = getDb();
     const rows = await db.getAllAsync('SELECT * FROM users');
     return rows as User[];
   } catch (error) {
-    console.error('❌ Error fetching users:', error);
+    console.error('Error fetching users:', error);
     return [];
   }
 };
 
-// 🔐 Lấy người dùng theo username + password (đăng nhập)
+// Lấy người dùng theo username + password (đăng nhập)
 export const getUserByCredentials = async (
   username: string,
   password: string
@@ -314,19 +266,19 @@ export const getUserByCredentials = async (
     );
     return (row as User) ?? null;
   } catch (error) {
-    console.error('❌ Error getting user by credentials:', error);
+    console.error('Error getting user by credentials:', error);
     return null;
   }
 };
 
-// 🔎 Lấy người dùng theo ID
+// Lấy người dùng theo ID
 export const getUserById = async (id: number): Promise<User | null> => {
   try {
     const db = getDb();
     const row = await db.getFirstAsync('SELECT * FROM users WHERE id = ?', [id]);
     return (row as User) ?? null;
   } catch (error) {
-    console.error('❌ Error getting user by id:', error);
+    console.error('Error getting user by id:', error);
     return null;
   }
 };
@@ -347,10 +299,10 @@ export const addCategory = async (name: string): Promise<boolean> => {
   try {
     const db = getDb();
     await db.runAsync('INSERT INTO categories (name) VALUES (?)', [name]);
-    console.log('✅ Category added');
+    console.log('Category added');
     return true;
   } catch (error) {
-    console.error('❌ Error adding category:', error);
+    console.error('Error adding category:', error);
     return false;
   }
 };
@@ -362,10 +314,10 @@ export const updateCategoryById = async (
   try {
     const db = getDb();
     await db.runAsync('UPDATE categories SET name = ? WHERE id = ?', [name, id]);
-    console.log('✅ Category updated');
+    console.log('Category updated');
     return true;
   } catch (error) {
-    console.error('❌ Error updating category:', error);
+    console.error('Error updating category:', error);
     return false;
   }
 };
@@ -375,10 +327,10 @@ export const deleteCategoryById = async (id: number): Promise<boolean> => {
     const db = getDb();
     await db.runAsync('DELETE FROM products WHERE categoryId = ?', [id]);
     await db.runAsync('DELETE FROM categories WHERE id = ?', [id]);
-    console.log('✅ Category deleted');
+    console.log('Category deleted');
     return true;
   } catch (error) {
-    console.error('❌ Error deleting category:', error);
+    console.error('Error deleting category:', error);
     return false;
   }
 };
@@ -648,26 +600,6 @@ export const fetchProductsByCategory = async (categoryId: number): Promise<Produ
   }
 };
 
-
-// ===================Order Management ======================================
-// Lấy tất cả đơn hàng kèm user info (dành cho admin)
-// export const fetchOrdersWithUser = async (): Promise<any[]> => {
-//   const db = getDb();
-//   const orders = await db.getAllAsync(
-//     `SELECT o.*,
-//             u.username,
-//             up.fullName,
-//             up.email,
-//             up.phone,
-//             up.address
-//      FROM orders o
-//      JOIN users u ON o.userId = u.id
-//      LEFT JOIN user_profiles up ON u.id = up.userId
-//      ORDER BY datetime(o.createdAt) DESC`
-//   );
-//   return orders;
-// };
-
 // Lấy tất cả đơn hàng kèm user info + sản phẩm trong đơn (dành cho admin)
 export const fetchOrdersWithUser = async (): Promise<any[]> => {
   const db = getDb();
@@ -718,10 +650,10 @@ export const updateOrderStatus = async (orderId: number, status: string): Promis
       'UPDATE orders SET status = ? WHERE id = ?',
       [status, orderId]
     );
-    console.log('✅ Order status updated');
+    console.log('Order status updated');
     return true;
   } catch (error) {
-    console.error('❌ Error updating order status:', error);
+    console.error('Error updating order status:', error);
     return false;
   }
 };

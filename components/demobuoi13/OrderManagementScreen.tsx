@@ -218,9 +218,22 @@ const AdminOrdersScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F8FAFC', paddingHorizontal: 16, paddingTop: 16 },
-  screenTitle: { fontSize: 24, fontWeight: '800', color: '#0F172A', marginTop: 8 },
-  screenSubtitle: { color: '#475569', marginBottom: 16 },
+  container: { 
+    flex: 1, 
+    backgroundColor: '#F8FAFC', 
+    paddingHorizontal: 16, 
+    paddingTop: 16 
+  },
+  screenTitle: { 
+    fontSize: 24, 
+    fontWeight: '800', 
+    color: '#0F172A', 
+    marginTop: 8 
+  },
+  screenSubtitle: { 
+    color: '#475569', 
+    marginBottom: 16 
+  },
   orderCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
@@ -229,30 +242,124 @@ const styles = StyleSheet.create({
     borderColor: '#E2E8F0',
     marginBottom: 12,
   },
-  orderHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  orderId: { fontSize: 18, fontWeight: '700', color: '#0F172A' },
-  orderUser: { color: '#64748B', marginTop: 2 },
-  orderTotal: { marginTop: 8, fontWeight: '600', color: '#0EA5E9' },
-  iconButton: { paddingHorizontal: 10, paddingVertical: 6, borderRadius: 10, backgroundColor: '#EEF2FF' },
-  iconButtonText: { color: '#4F46E5', fontWeight: '600' },
-  loadingContainer: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  loadingText: { marginTop: 12, color: '#475569' },
-  modalBackdrop: { flex: 1, backgroundColor: 'rgba(15, 23, 42, 0.45)', alignItems: 'center', justifyContent: 'center', padding: 24 },
-  modalContent: { width: '100%', backgroundColor: '#FFFFFF', borderRadius: 16, padding: 20 },
-  modalTitle: { fontSize: 18, fontWeight: '700', color: '#0F172A', marginBottom: 12 },
-  modalActions: { flexDirection: 'row', justifyContent: 'flex-end', gap: 12 },
-  modalCancel: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: 10, borderWidth: 1, borderColor: '#CBD5F5' },
-  modalCancelText: { color: '#475569', fontWeight: '600' },
-  modalSave: { paddingHorizontal: 20, paddingVertical: 10, borderRadius: 10, backgroundColor: '#4F46E5' },
-  modalSaveText: { color: '#FFFFFF', fontWeight: '700' },
-  expandRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 8 },
-  expandText: { color: '#475569', fontWeight: '500' },
-  expandIndicator: { color: '#94A3B8' },
-  itemsSection: { borderTopWidth: 1, borderTopColor: '#E2E8F0', paddingTop: 12 },
-  itemRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 4 },
-  itemName: { color: '#0F172A', flexShrink: 1 },
-  itemPrice: { color: '#0EA5E9', fontWeight: '600' },
-  emptyItemsText: { color: '#94A3B8', fontStyle: 'italic' },
+  orderHeader: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center' 
+  },
+  orderId: { 
+    fontSize: 18, 
+    fontWeight: '700', 
+    color: '#0F172A' 
+  },
+  orderUser: { 
+    color: '#64748B', 
+    marginTop: 2 
+  },
+  orderTotal: { 
+    marginTop: 8, 
+    fontWeight: '600', 
+    color: '#0EA5E9' 
+  },
+  iconButton: { 
+    paddingHorizontal: 10, 
+    paddingVertical: 6, 
+    borderRadius: 10, 
+    backgroundColor: '#EEF2FF' 
+  },
+  iconButtonText: { 
+    color: '#4F46E5', 
+    fontWeight: '600' 
+  },
+  loadingContainer: { 
+    flex: 1, 
+    alignItems: 'center', 
+    justifyContent: 'center' 
+  },
+  loadingText: { 
+    marginTop: 12, 
+    color: '#475569' 
+  },
+  modalBackdrop: { 
+    flex: 1, 
+    backgroundColor: 'rgba(15, 23, 42, 0.45)', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    padding: 24 
+  },
+  modalContent: { 
+    width: '100%', 
+    backgroundColor: '#FFFFFF', 
+    borderRadius: 16, 
+    padding: 20 
+  },
+  modalTitle: { 
+    fontSize: 18, 
+    fontWeight: '700', 
+    color: '#0F172A', 
+    marginBottom: 12 
+  },
+  modalActions: { 
+    flexDirection: 'row', 
+    justifyContent: 'flex-end', 
+    gap: 12 
+  },
+  modalCancel: { 
+    paddingHorizontal: 16, 
+    paddingVertical: 10, 
+    borderRadius: 10, 
+    borderWidth: 1, 
+    borderColor: '#CBD5F5' 
+  },
+  modalCancelText: { 
+    color: '#475569', 
+    fontWeight: '600' 
+  },
+  modalSave: { 
+    paddingHorizontal: 20, 
+    paddingVertical: 10, 
+    borderRadius: 10, 
+    backgroundColor: '#4F46E5' 
+  },
+  modalSaveText: { 
+    color: '#FFFFFF', 
+    fontWeight: '700' 
+  },
+  expandRow: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    paddingVertical: 8 
+  },
+  expandText: { 
+    color: '#475569', 
+    fontWeight: '500' 
+  },
+  expandIndicator: { 
+    color: '#94A3B8' 
+  },
+  itemsSection: { 
+    borderTopWidth: 1, 
+    borderTopColor: '#E2E8F0', 
+    paddingTop: 12 
+  },
+  itemRow: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    paddingVertical: 4 
+  },
+  itemName: { 
+    color: '#0F172A', 
+    flexShrink: 1 
+  },
+  itemPrice: { 
+    color: '#0EA5E9', 
+    fontWeight: '600' 
+  },
+  emptyItemsText: { 
+    color: '#94A3B8', 
+    fontStyle: 'italic' 
+  },
 });
 
 export default AdminOrdersScreen;

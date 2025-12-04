@@ -25,10 +25,26 @@ const CategorySelector = ({ categories, selectedId, onSelect }: Props) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 10 },
-  button: { padding: 10, backgroundColor: '#ccc', borderRadius: 6, margin: 5 },
-  selectedButton: { backgroundColor: '#28a' },
-  text: { color: '#fff' },
+  container: { 
+    flexDirection: 'row', 
+    flexWrap: 'wrap', 
+    marginTop: 10 
+  },
+
+  button: { 
+    padding: 10, 
+    backgroundColor: '#ccc', 
+    borderRadius: 6, 
+    margin: 5 
+  },
+
+  selectedButton: { 
+    backgroundColor: '#28a' 
+  },
+
+  text: { 
+    color: '#fff' 
+  },
 });
 
 export default CategorySelector;

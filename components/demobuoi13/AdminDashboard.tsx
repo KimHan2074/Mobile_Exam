@@ -11,21 +11,21 @@ const actions = [
     key: 'users',
     title: 'Quản lý user',
     description: 'Xem, cập nhật vai trò, xóa user',
-    icon: '👥',
+    icon: '👤',
     target: 'UserManagement' as const,
   },
   {
     key: 'categories',
     title: 'Quản lý loại sản phẩm',
     description: 'Xem, thêm, sửa, xóa loại',
-    icon: '📂',
+    icon: '📒',
     target: 'CategoryManagement' as const,
   },
   {
     key: 'products',
     title: 'Quản lý sản phẩm',
     description: 'Xem, thêm, sửa, xóa sản phẩm',
-    icon: '📦',
+    icon: '🗂',
     target: 'ProductManagement' as const,
   },
   {
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
       <Header />
 
       <View style={styles.card}>
-        <Text style={styles.title}>🛡️ Trang chủ quản trị</Text>
+        <Text style={styles.title}>🛡Trang chủ quản trị</Text>
         <Text style={styles.subtitle}>
           Chọn một chức năng quản trị bên dưới để bắt đầu làm việc.
         </Text>

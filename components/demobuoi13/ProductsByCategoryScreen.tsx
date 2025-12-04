@@ -86,11 +86,28 @@ export default function ProductsByCategoryScreen() {
 }
 
 const styles = StyleSheet.create({
-  card: { padding: 10, marginBottom: 10, borderWidth: 1, borderColor: '#ccc', borderRadius: 6, backgroundColor: '#fff' },
-  cardBody: { flexDirection: 'row' },
-  image: { width: 80, height: 80, marginRight: 10 },
-  info: { justifyContent: 'center' },
-  name: { fontWeight: 'bold' },
+  card: { 
+    padding: 10, 
+    marginBottom: 10, 
+    borderWidth: 1, 
+    borderColor: '#ccc', 
+    borderRadius: 6, 
+    backgroundColor: '#fff' 
+  },
+  cardBody: { 
+    flexDirection: 'row' 
+  },
+  image: { 
+    width: 80, 
+    height: 80, 
+    marginRight: 10 
+  },
+  info: { 
+    justifyContent: 'center' 
+  },
+  name: { 
+    fontWeight: 'bold' 
+  },
   addButton: {
     marginTop: 8,
     borderRadius: 8,
@@ -98,5 +115,8 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     alignItems: 'center',
   },
-  addButtonText: { color: '#fff', fontWeight: '700' },
+  addButtonText: { 
+    color: '#fff', 
+    fontWeight: '700' 
+  },
 });
