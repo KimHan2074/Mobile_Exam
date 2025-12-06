@@ -77,7 +77,7 @@ const DetailsScreen = ({ route, navigation }: DetailsScreenProps) => {
       <Image
         source={getImageSource(product.img)}
         style={styles.productImage}
-        resizeMode="cover"
+        resizeMode="contain"
       />
 
       {/* THÔNG TIN SẢN PHẨM */}
@@ -100,8 +100,8 @@ const DetailsScreen = ({ route, navigation }: DetailsScreenProps) => {
       <Text style={styles.labelCategory}>Xem sản phẩm theo loại:</Text>
       <CategorySelector
         categories={categories}
-        selectedId={product.categoryId} // highlight category hiện tại
-        onSelect={handleSelectCategory} // click → điều hướng
+        selectedId={product.categoryId} 
+        onSelect={handleSelectCategory} 
       />
 
       <TouchableOpacity style={styles.addButton} onPress={handleAddToCart}>
@@ -112,56 +112,57 @@ const DetailsScreen = ({ route, navigation }: DetailsScreenProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    padding: 20, 
-    backgroundColor: '#fff' 
+  container: {
+    padding: 14,        
+    backgroundColor: '#fff',
   },
-  title: { 
-    fontSize: 26, 
-    fontWeight: 'bold', 
-    textAlign: 'center', 
-    marginBottom: 20, 
-    color: '#333' 
+  title: {
+    fontSize: 20,       
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 14,   
+    color: '#333'
   },
-  productImage: { 
-    width: '100%', 
-    height: 260, 
-    borderRadius: 12, 
-    marginBottom: 25 
+  productImage: {
+    width: '100%',
+    height: 200,        
+    borderRadius: 10,
+    marginBottom: 16,   
   },
-  infoBox: { 
-    flexDirection: 'row', 
-    marginVertical: 6 
+  infoBox: {
+    flexDirection: 'row',
+    marginVertical: 4,  
   },
-  label: { 
-    width: 90, 
-    fontWeight: '600', 
-    fontSize: 16, 
-    color: '#555' 
+  label: {
+    width: 70,          
+    fontWeight: '600',
+    fontSize: 14,       
+    color: '#555',
   },
-  value: { 
-    fontSize: 16, 
-    color: '#222' 
+  value: {
+    fontSize: 14,       
+    color: '#222',
   },
-  labelCategory: { 
-    marginTop: 20, 
-    fontSize: 16, 
-    fontWeight: 'bold', 
-    color: '#333' 
+  labelCategory: {
+    marginTop: 14,      
+    fontSize: 15,       
+    fontWeight: 'bold',
+    color: '#333',
   },
   addButton: {
-    marginTop: 20,
+    marginTop: 16,      
     backgroundColor: '#22C55E',
-    borderRadius: 12,
-    paddingVertical: 14,
+    borderRadius: 10,   
+    paddingVertical: 10, 
     alignItems: 'center',
   },
   addButtonText: {
     color: '#FFFFFF',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: 15,       
   },
 });
+
 
 export default DetailsScreen;
 

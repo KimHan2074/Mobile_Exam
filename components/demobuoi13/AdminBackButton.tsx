@@ -31,25 +31,26 @@ const AdminBackButton = () => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: 12,
+    marginBottom: 8, 
   },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 4,                     
     alignSelf: 'flex-start',
     backgroundColor: '#E0E7FF',
     borderRadius: 999,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
+    paddingHorizontal: 10,      
+    paddingVertical: 6,         
   },
   icon: {
-    fontSize: 16,
+    fontSize: 14,               
     color: '#4338CA',
   },
   text: {
     color: '#4338CA',
     fontWeight: '600',
+    fontSize: 14,               
   },
 });
 

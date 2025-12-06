@@ -218,149 +218,189 @@ const AdminOrdersScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#F8FAFC', 
-    paddingHorizontal: 16, 
-    paddingTop: 16 
+  container: {
+    flex: 1,
+    backgroundColor: '#F8FAFC',
+    paddingHorizontal: 12,
+    paddingTop: 12
   },
-  screenTitle: { 
-    fontSize: 24, 
-    fontWeight: '800', 
-    color: '#0F172A', 
-    marginTop: 8 
+
+  screenTitle: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: '#0F172A',
+    marginTop: 6
   },
-  screenSubtitle: { 
-    color: '#475569', 
-    marginBottom: 16 
+
+  screenSubtitle: {
+    color: '#475569',
+    marginBottom: 12,
+    fontSize: 13
   },
+
   orderCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 16,
+    borderRadius: 12,
+    padding: 12,
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    marginBottom: 12,
+    marginBottom: 10,
   },
-  orderHeader: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center' 
+
+  orderHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
-  orderId: { 
-    fontSize: 18, 
-    fontWeight: '700', 
-    color: '#0F172A' 
+
+  orderId: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0F172A'
   },
-  orderUser: { 
-    color: '#64748B', 
-    marginTop: 2 
+
+  orderUser: {
+    color: '#64748B',
+    marginTop: 2,
+    fontSize: 13
   },
-  orderTotal: { 
-    marginTop: 8, 
-    fontWeight: '600', 
-    color: '#0EA5E9' 
+
+  orderTotal: {
+    marginTop: 6,
+    fontWeight: '600',
+    color: '#0EA5E9',
+    fontSize: 14
   },
-  iconButton: { 
-    paddingHorizontal: 10, 
-    paddingVertical: 6, 
-    borderRadius: 10, 
-    backgroundColor: '#EEF2FF' 
+
+  iconButton: {
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderRadius: 8,
+    backgroundColor: '#EEF2FF'
   },
-  iconButtonText: { 
-    color: '#4F46E5', 
-    fontWeight: '600' 
+
+  iconButtonText: {
+    color: '#4F46E5',
+    fontWeight: '600',
+    fontSize: 13
   },
-  loadingContainer: { 
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center' 
+
+  loadingContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  loadingText: { 
-    marginTop: 12, 
-    color: '#475569' 
+
+  loadingText: {
+    marginTop: 10,
+    color: '#475569',
+    fontSize: 13
   },
-  modalBackdrop: { 
-    flex: 1, 
-    backgroundColor: 'rgba(15, 23, 42, 0.45)', 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    padding: 24 
+
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(15, 23, 42, 0.45)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20
   },
-  modalContent: { 
-    width: '100%', 
-    backgroundColor: '#FFFFFF', 
-    borderRadius: 16, 
-    padding: 20 
+
+  modalContent: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 16
   },
-  modalTitle: { 
-    fontSize: 18, 
-    fontWeight: '700', 
-    color: '#0F172A', 
-    marginBottom: 12 
+
+  modalTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0F172A',
+    marginBottom: 10
   },
-  modalActions: { 
-    flexDirection: 'row', 
-    justifyContent: 'flex-end', 
-    gap: 12 
+
+  modalActions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 10
   },
-  modalCancel: { 
-    paddingHorizontal: 16, 
-    paddingVertical: 10, 
-    borderRadius: 10, 
-    borderWidth: 1, 
-    borderColor: '#CBD5F5' 
+
+  modalCancel: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#CBD5F5'
   },
-  modalCancelText: { 
-    color: '#475569', 
-    fontWeight: '600' 
+
+  modalCancelText: {
+    color: '#475569',
+    fontWeight: '600',
+    fontSize: 13
   },
-  modalSave: { 
-    paddingHorizontal: 20, 
-    paddingVertical: 10, 
-    borderRadius: 10, 
-    backgroundColor: '#4F46E5' 
+
+  modalSave: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    backgroundColor: '#4F46E5'
   },
-  modalSaveText: { 
-    color: '#FFFFFF', 
-    fontWeight: '700' 
+
+  modalSaveText: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+    fontSize: 14
   },
-  expandRow: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
-    paddingVertical: 8 
+
+  expandRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 6
   },
-  expandText: { 
-    color: '#475569', 
-    fontWeight: '500' 
+
+  expandText: {
+    color: '#475569',
+    fontWeight: '500',
+    fontSize: 13
   },
-  expandIndicator: { 
-    color: '#94A3B8' 
+
+  expandIndicator: {
+    color: '#94A3B8',
+    fontSize: 13
   },
-  itemsSection: { 
-    borderTopWidth: 1, 
-    borderTopColor: '#E2E8F0', 
-    paddingTop: 12 
+
+  itemsSection: {
+    borderTopWidth: 1,
+    borderTopColor: '#E2E8F0',
+    paddingTop: 10
   },
-  itemRow: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    paddingVertical: 4 
+
+  itemRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 3
   },
-  itemName: { 
-    color: '#0F172A', 
-    flexShrink: 1 
+
+  itemName: {
+    color: '#0F172A',
+    flexShrink: 1,
+    fontSize: 13
   },
-  itemPrice: { 
-    color: '#0EA5E9', 
-    fontWeight: '600' 
+
+  itemPrice: {
+    color: '#0EA5E9',
+    fontWeight: '600',
+    fontSize: 13
   },
-  emptyItemsText: { 
-    color: '#94A3B8', 
-    fontStyle: 'italic' 
+
+  emptyItemsText: {
+    color: '#94A3B8',
+    fontStyle: 'italic',
+    fontSize: 12
   },
 });
+
 
 export default AdminOrdersScreen;
 

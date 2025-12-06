@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F8FAFC',
-    padding: 16,
+    padding: 12,
   },
   center: {
     flex: 1,
@@ -217,128 +217,155 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,               
     fontWeight: '800',
     color: '#0F172A',
-    marginBottom: 16,
+    marginBottom: 12,           
   },
   infoText: {
     color: '#475569',
     textAlign: 'center',
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,      
+    fontSize: 13,               
   },
+
   card: {
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 12,
+    borderRadius: 12,           
+    padding: 10,                
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    marginBottom: 12,
+    marginBottom: 10,           
     alignItems: 'center',
-    gap: 12,
+    gap: 10,
   },
+
   image: {
-    width: 72,
-    height: 72,
-    borderRadius: 12,
+    width: 58,                  
+    height: 58,                 
+    borderRadius: 10,
   },
+
   info: {
     flex: 1,
   },
+
   name: {
-    fontSize: 16,
+    fontSize: 14,                
     fontWeight: '700',
     color: '#0F172A',
   },
+
   price: {
     color: '#0EA5E9',
-    marginTop: 4,
+    marginTop: 3,               
     fontWeight: '600',
+    fontSize: 13,
   },
+
   quantityRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 8,
-    gap: 8,
+    marginTop: 6,               
+    gap: 6,
   },
+
   qtyButton: {
-    width: 28,
-    height: 28,
-    borderRadius: 8,
+    width: 24,                 
+    height: 24,
+    borderRadius: 6,
     backgroundColor: '#EEF2FF',
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   qtyButtonText: {
     color: '#4338CA',
-    fontSize: 18,
+    fontSize: 16,              
     fontWeight: '700',
   },
+
   quantity: {
-    minWidth: 32,
+    minWidth: 26,              
     textAlign: 'center',
     fontWeight: '700',
     color: '#0F172A',
+    fontSize: 14,
   },
+
   removeButton: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
+    paddingVertical: 4,       
+    paddingHorizontal: 10,     
     borderRadius: 999,
     backgroundColor: '#FEE2E2',
   },
+
   removeButtonText: {
     color: '#B91C1C',
     fontWeight: '600',
+    fontSize: 12,              
   },
+
   summary: {
-    marginTop: 8,
-    padding: 16,
+    marginTop: 6,               
+    padding: 12,                
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: '#E2E8F0',
   },
+
   summaryLabel: {
     color: '#475569',
+    fontSize: 13,
   },
+
   summaryValue: {
-    fontSize: 20,
+    fontSize: 18,               
     fontWeight: '800',
     color: '#0F172A',
-    marginTop: 4,
+    marginTop: 3,
   },
+
   summaryActions: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 12,
-    marginTop: 16,
+    gap: 10,                    
+    marginTop: 14,              
   },
+
   secondaryButton: {
     flex: 1,
-    paddingVertical: 12,
-    borderRadius: 12,
+    paddingVertical: 10,        
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: '#CBD5F5',
     alignItems: 'center',
   },
+
   secondaryText: {
     color: '#475569',
     fontWeight: '600',
+    fontSize: 14,               
   },
+
   primaryButton: {
     flex: 1,
-    paddingVertical: 12,
-    borderRadius: 12,
+    paddingVertical: 10,
+    borderRadius: 10,
     backgroundColor: '#6366F1',
     alignItems: 'center',
   },
+
   disabledButton: {
     backgroundColor: '#CBD5F5',
   },
+
   primaryText: {
     color: '#FFFFFF',
     fontWeight: '700',
+    fontSize: 14,
   },
 });
 

@@ -520,233 +520,271 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F8FAFC',
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingHorizontal: 12,
+    paddingTop: 12,
   },
+
   screenTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '800',
     color: '#0F172A',
-    marginTop: 8,
+    marginTop: 6,
   },
   screenSubtitle: {
+    fontSize: 13,
     color: '#475569',
-    marginBottom: 16,
+    marginBottom: 12,
   },
+
   addCategoryButton: {
     backgroundColor: '#E0F2FE',
-    borderRadius: 12,
-    paddingVertical: 12,
+    borderRadius: 10,
+    paddingVertical: 10,
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 14,
   },
   addCategoryText: {
+    fontSize: 13,
     color: '#0369A1',
     fontWeight: '700',
   },
-  list: {
-    flex: 1,
-  },
-  listContent: {
-    paddingBottom: 32,
-  },
+
+  list: { flex: 1 },
+  listContent: { paddingBottom: 24 },
+
+  /* ===== CATEGORY CARD ===== */
   categoryCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 16,
+    backgroundColor: '#FFF',
+    borderRadius: 12,
+    padding: 12,
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    marginBottom: 12,
+    marginBottom: 10,
   },
+
   categoryHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   categoryName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     color: '#0F172A',
   },
   categoryMeta: {
-    color: '#64748B',
+    fontSize: 12,
     marginTop: 2,
+    color: '#64748B',
   },
+
   headerActions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
   },
+
   iconButton: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 10,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderRadius: 8,
     backgroundColor: '#EEF2FF',
   },
   iconButtonText: {
+    fontSize: 12,
     color: '#4F46E5',
     fontWeight: '600',
   },
+
   deleteIconButton: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 10,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderRadius: 8,
     backgroundColor: '#FEE2E2',
   },
   deleteIconText: {
+    fontSize: 12,
     color: '#B91C1C',
     fontWeight: '600',
   },
+
   expandRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: 10,
   },
   expandText: {
+    fontSize: 13,
     color: '#475569',
     fontWeight: '500',
   },
   expandIndicator: {
+    fontSize: 13,
     color: '#94A3B8',
   },
+
   productsSection: {
     borderTopWidth: 1,
     borderTopColor: '#E2E8F0',
-    paddingTop: 12,
+    paddingTop: 10,
   },
+
   productsLoading: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
   },
   productsLoadingText: {
+    fontSize: 13,
     color: '#475569',
   },
+
   emptyProductsText: {
+    fontSize: 12,
     color: '#94A3B8',
     fontStyle: 'italic',
   },
+
+  /* ===== PRODUCT ROW ===== */
   productRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 6,
+    paddingVertical: 4,
   },
   productInfo: {
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
-    gap: 10,
+    gap: 8,
   },
   productImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 8,
+    width: 34,
+    height: 34,
+    borderRadius: 6,
   },
   productName: {
+    fontSize: 13,
     color: '#0F172A',
     flexShrink: 1,
   },
   productPrice: {
+    fontSize: 13,
     color: '#0EA5E9',
     fontWeight: '600',
   },
+
+  /* ===== EMPTY STATE ===== */
   emptyState: {
     alignItems: 'center',
-    marginTop: 60,
-    paddingHorizontal: 16,
+    marginTop: 40,
+    paddingHorizontal: 12,
   },
   emptyTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     color: '#0F172A',
   },
   emptySubtitle: {
+    fontSize: 13,
     color: '#475569',
     marginTop: 4,
     textAlign: 'center',
   },
+
   loadingContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   loadingText: {
-    marginTop: 12,
+    fontSize: 13,
+    marginTop: 10,
     color: '#475569',
   },
+
+  /* ===== MODAL ===== */
   modalBackdrop: {
     flex: 1,
     backgroundColor: 'rgba(15, 23, 42, 0.45)',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 24,
+    padding: 20,
   },
   modalContent: {
     width: '100%',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
+    backgroundColor: '#FFF',
+    borderRadius: 14,
+    padding: 16,
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     color: '#0F172A',
-    marginBottom: 12,
+    marginBottom: 10,
   },
+
   input: {
     borderWidth: 1,
     borderColor: '#CBD5F5',
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    marginBottom: 12,
-    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    marginBottom: 10,
+    backgroundColor: '#FFF',
+    fontSize: 13,
   },
+
   modalActions: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    gap: 12,
+    gap: 10,
   },
   modalCancel: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: '#CBD5F5',
   },
   modalCancelText: {
+    fontSize: 13,
     color: '#475569',
     fontWeight: '600',
   },
   modalSave: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
     backgroundColor: '#4F46E5',
   },
   modalSaveText: {
-    color: '#FFFFFF',
+    fontSize: 13,
+    color: '#FFF',
     fontWeight: '700',
   },
+
+  /* IMAGE PICKER */
   imagePickerButton: {
     backgroundColor: '#E0E7FF',
-    borderRadius: 10,
-    paddingVertical: 10,
+    borderRadius: 8,
+    paddingVertical: 8,
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 10,
   },
   imagePickerText: {
+    fontSize: 13,
     color: '#4338CA',
     fontWeight: '600',
   },
+
   previewImage: {
-    width: 96,
-    height: 96,
-    borderRadius: 12,
+    width: 70,
+    height: 70,
+    borderRadius: 10,
     alignSelf: 'center',
-    marginBottom: 12,
+    marginBottom: 10,
   },
 });
 
